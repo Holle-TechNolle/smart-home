@@ -1,0 +1,21 @@
+# Home Assistant 
+secrets.yaml 
+known_devices.yaml 
+home-assistant.log 
+home-assistant_v2.db 
+.uuid 
+.HA_VERSION 
+ 
+# Python 
+__pycache__/ 
+*.py[cod] 
+*$py.class 
+ 
+# AppDaemon 
+appdaemon.log 
+ 
+# VS Code 
+.vscode/settings.json 
+ 
+# Credentials (before git-crypt setup) 
+docs/CREDENTIALS.md 
