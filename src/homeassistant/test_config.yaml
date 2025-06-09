@@ -1,0 +1,14 @@
+homeassistant:
+  name: Smart Home Test
+  latitude: 55.6761
+  longitude: 12.5683
+  elevation: 10
+  unit_system: metric
+  time_zone: Europe/Copenhagen
+
+sensor:
+  - platform: template
+    sensors:
+      test_sensor:
+        friendly_name: "Test Sensor"
+        value_template: "{{ states('sensor.time') }}"
