@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "keesschollaart.vscode-home-assistant",
+        "ms-python.python",
+        "redhat.vscode-yaml",
+        "eamodio.gitlens",
+        "yzhang.markdown-all-in-one",
+        "ms-vscode-remote.remote-ssh",
+        "gruntfuggly.todo-tree"
+    ]
+}
