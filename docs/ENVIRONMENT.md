@@ -3,31 +3,30 @@
 ## Hardware 
  
 ### Intel NUC (Home Assistant) 
-- **IPv4:** 192.168.1.15/24 
-- **IPv6:** fe80::9492:4629:cef1:c40b/64 
+- **IPv4:** 192.168.1.x/24 (local network) 
+- **IPv6:** fe80::[redacted]/64 
 - **OS Version:** Home Assistant OS 15.2 
 - **Home Assistant Core:** 2025.6.1 
 - **Home Assistant Supervisor:** 2025.05.5 
 - **Architecture:** amd64 / generic-x86-64 
  
 ### Raspberry Pi 3 
-- **Hostname:** raspberrypi 
-- **IPv4:** 192.168.1.35 
-- **Brugernavn:** gladmin 
+- **Hostname:** [pi-hostname] 
+- **IPv4:** 192.168.1.x (local network) 
+- **Username:** [pi-user] 
 - **OS:** Raspberry Pi OS (Debian GNU/Linux) 
  
 ## Network og Connectivity 
  
 ### Lokal adgang 
 - **Home Assistant URL:** http://homeassistant.local:8123 
-- **Home Assistant (IP):** http://192.168.1.15:8123 
+- **Home Assistant (IP):** http://[local-ip]:8123 
 - **Observer URL:** http://homeassistant.local:4357 
  
-### Tailscale adgang 
-- **Home Assistant URL:** http://homeassistant.tailc0a425.ts.net:8123 
-- **Tailscale IP:** 100.93.196.4 
-- **Hassio dashboard:** http://homeassistant.tailc0a425.ts.net:8123/hassio/dashboard 
-- **Tailscale konto:** holle-technolle.github 
+### Remote adgang 
+- **VPN URL:** http://homeassistant.[vpn-id].ts.net:8123 
+- **VPN IP:** [vpn-ip] 
+- **VPN Account:** [vpn-account] 
  
 ## Software Setup 
  
@@ -47,19 +46,21 @@
 - **Smart Life** integration konfigureret 
  
 ## Location og Konfiguration 
-- **Adresse:** Skee-Tåstrupvej 12, 4370 Store Merløse, Danmark 
-- **Latitude:** 55.546341 
-- **Longitude:** 11.716269 
-- **Elevation:** 52 meter 
+- **Location:** Store Merløse området, Danmark 
+- **Latitude:** 55.5xxx (generalized) 
+- **Longitude:** 11.7xxx (generalized) 
+- **Elevation:** ~50 meter 
 - **Unit System:** Metric 
 - **Tidszone:** Europe/Copenhagen 
  
 ## SSH Adgang 
  
 ### Konfigurerede forbindelser 
-- **Intel NUC (Home Assistant):** `ssh root@192.168.1.15` 
-- **Raspberry Pi:** `ssh gladmin@192.168.1.35` 
-- **Via Tailscale:** `ssh root@homeassistant.tailc0a425.ts.net` 
+- **Intel NUC (Home Assistant):** `ssh [user]@[local-ip]` 
+- **Raspberry Pi:** `ssh [user]@[pi-ip]` 
+- **Via VPN:** `ssh [user]@[vpn-hostname]` 
  
 ### SSH Konfiguration 
 Alle forbindelser konfigureret i `~/.ssh/config` for nem adgang via VS Code Remote SSH extension. 
+ 
+**Note:** Præcise IP-adresser, hostnavne og credentials findes i krypterede filer i `secure/` mappen. 

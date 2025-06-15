@@ -66,3 +66,19 @@ ssh gladmin@192.168.1.35
 - ✅ **Integreret terminal** på remote systemer 
 - ✅ **Live debugging** af automationer 
 - ✅ **Git integration** for version control 
+ 
+## 🔗 SSH Forbindelser (Eksempler) 
+ 
+#### Home Assistant (Intel NUC) 
+```bash 
+ssh [ha-user]@[local-ip] 
+# Eller via VPN 
+ssh [ha-user]@[vpn-hostname] 
+``` 
+ 
+#### Raspberry Pi (Test Environment) 
+```bash 
+ssh [pi-user]@[pi-ip] 
+``` 
+ 
+**Note:** Aktuelle værdier findes i krypterede konfigurationsfiler. 

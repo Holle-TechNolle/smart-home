@@ -1,0 +1,2 @@
+# Git-crypt configuration 
+secure/** filter=git-crypt diff=git-crypt 

@@ -19,3 +19,44 @@ appdaemon.log
  
 # Credentials (before git-crypt setup) 
 docs/CREDENTIALS.md 
+# Backup files (prevent accidental exposure) 
+*.backup 
+ 
+# Development secrets (before git-crypt setup) 
+secrets.yaml 
+config/secrets.yaml 
+ 
+# Temporary files 
+*.tmp 
+*.temp 
+# ======================================== 
+# SECURE FOLDER - NEVER COMMIT TO GITHUB 
+# ======================================== 
+secure/ 
+secure/* 
+secure/** 
+ 
+# Backup files (prevent accidental exposure) 
+*.backup 
+**/*.backup 
+ 
+# Temporary credentials files 
+secrets.yaml 
+config/secrets.yaml 
+credentials.* 
+passwords.* 
+ 
+# SSH keys and configs 
+id_rsa 
+id_rsa.pub 
+ssh_config 
+ 
+# Development temporary files 
+*.tmp 
+*.temp 
+*.log 
+ 
+# OS generated files 
+.DS_Store 
+Thumbs.db 
+desktop.ini 
