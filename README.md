@@ -1,4 +1,3 @@
-
 # Smart Home Project
 
 Dette er mit Smart Home projekt baseret på Home Assistant som centrum - et pragmatisk eksempel på hvordan moderne IoT-systemer kan designes med fokus på enkelhed, sikkerhed og vedligeholdelse.
@@ -15,51 +14,42 @@ Dette design-paradigme prioriterer langsigtet vedligeholdelse over kortsigtede f
 
 Projektet illustrerer hvordan komplekse tekniske systemer kan bygges med professionel struktur, samtidig med at de forbliver tilgængelige og brugbare i praksis.
 
-## 📋 Task Management og Projektstyring
+## Task Management og Projektstyring
 
-Dette projekt anvender **GitHub's indbyggede task management** i stedet for eksterne værktøjer som Jira. Dette valg understøtter projektets arkitektoniske princip om at minimere værktøjskompleksitet og maksimere integration.
+Dette projekt anvender **GitHub's indbyggede Kanban-board** for kontinuerlig task management og organisk udvikling.
 
-### GitHub Projects Integration
-
-**Projektboard:** [Smart Home Kanban](https://github.com/Holle-TechNolle/smart-home/projects)
+### Projektboard: [Smart Home Kanban](https://github.com/users/Holle-TechNolle/projects/3)
 
 #### Workflow struktur:
 
-* **Backlog** - Ideer og fremtidige tasks
-* **To Do** - Planlagte opgaver klar til påbegyndelse
-* **In Progress** - Aktive arbejdsområder
-* **Review** - Implementeret og klar til test/validering
-* **Done** - Gennemførte tasks
+* **Backlog** - Ideer og planlagte opgaver
+* **In Progress** - Aktiv udvikling og test
+* **Implementing** - Deployment og produktionsindkøring med parameterjusteringer
+* **Done** - Stabile features i produktion
 
-#### Issue kategorisering:
+#### Kanban-filosofi for personlige projekter:
 
-* **`enhancement`** - Nye features og forbedringer
-* **`documentation`** - Dokumentation og guides
-* **`bug`** - Fejlrettelser og problemer
-* **`security`** - Sikkerhedsrelaterede tasks
-* **`infrastructure`** - DevOps og systemkonfiguration
+Kanban anvendes uden sprints for at understøtte organisk udvikling hvor opgaver håndteres kontinuerligt efter prioritet og kapacitet. Dette undgår Jira's problematiske auto-completion af sprints der kan resultere i tab af tasks.
+
+#### Task-håndtering:
+
+**Indholdstunge tasks** - Detaljeret information om test, implementering og roll-back procedurer gemmes direkte på task-kortet for at placere viden tæt på anvendelsesstedet.
+
+**Fejlhåndtering** - Ved alvorlige implementeringsproblemer flyttes tasks tilbage til "In Progress" for redesign og re-test.
+
+**Arkivering** - Gennemførte tasks forbliver i "Done" for reference og flyttes manuelt til arkivfunktion efter en periode.
 
 #### Integration med udvikling:
 
 * Issues linkes direkte til commits via `#issue-nummer`
-* Pull requests refererer automatisk til relaterede issues
-* Automated workflow flytter issues mellem kolonner baseret på commit status
-* Milestone-baseret planlægning for større projektfaser
+* Automated workflow baseret på commit references
+* Labels for kategorisering: `enhancement`, `documentation`, `bug`, `security`, `infrastructure`
 
-#### Drift og vedligeholdelse:
+#### Fremtidig udvidelse:
 
-Task management fortsætter efter udviklingsfasen til løbende systemvedligeholdelse:
+Projektets task management kan udvides med NoSQL-baseret wiki-funktionalitet hvor task-indhold indekseres for avanceret søgning og knowledge management.
 
-* **Maintenance tasks** - Opdateringer og patches
-* **Monitoring issues** - Systemovervågning og alerts
-* **Configuration changes** - Konfigurationsjusteringer
-* **Performance optimization** - Systemoptimering
-
-### Adgang og navigation:
-
-Projektets task management tilgås via GitHub repository under **"Projects"** tab eller direkte gennem Issues-sektionen med filtering efter labels og milestones.
-
-## 🛠️ Udviklersetup
+## Udviklersetup
 
 ### Forudsætninger
 
@@ -67,7 +57,7 @@ Projektets task management tilgås via GitHub repository under **"Projects"** ta
 * **Git** konfigureret med SSH nøgler eller HTTPS credentials
 * **Netværksadgang** til lokalt netværk eller VPN
 
-### 🚀 Første gang setup
+### Første gang setup
 
 1. **Klon repository:**
    ```bash
@@ -82,7 +72,7 @@ Projektets task management tilgås via GitHub repository under **"Projects"** ta
    * VS Code vil prompte dig til at installere anbefalede extensions
    * Klik "Install All" for optimal udvikleroplevelse
 
-### 🔗 SSH Forbindelser (Eksempler)
+### SSH Forbindelser (Eksempler)
 
 #### Home Assistant (Intel NUC)
 
@@ -100,7 +90,7 @@ ssh [pi-user]@[pi-ip]
 
 **Note:** Aktuelle værdier findes i krypterede konfigurationsfiler.
 
-### 🔄 Udviklerworkflow
+### Udviklerworkflow
 
 #### Home Assistant Konfiguration
 
@@ -116,13 +106,7 @@ ssh [pi-user]@[pi-ip]
 3. **Deploy til Home Assistant** når stabil
 4. **Dokumenter ændringer** og commit til GitHub
 
-#### Dokumentation
-
-1. **Rediger Markdown filer** lokalt i VS Code
-2. **Preview ændringer** med Markdown extension
-3. **Commit og push** til GitHub for automatisk sync
-
-### 🎯 VS Code Remote Development
+### VS Code Remote Development
 
 #### Få adgang til Home Assistant filer:
 
@@ -133,45 +117,30 @@ ssh [pi-user]@[pi-ip]
 
 #### Features tilgængelige:
 
-* ✅ **Syntax highlighting** for Home Assistant YAML
-* ✅ **Autocomplete** og validering
-* ✅ **Integreret terminal** på remote systemer
-* ✅ **Live debugging** af automationer
-* ✅ **Git integration** for version control
+* Syntax highlighting for Home Assistant YAML
+* Autocomplete og validering
+* Integreret terminal på remote systemer
+* Live debugging af automationer
+* Git integration for version control
 
-### 📝 Konfigurationsfiler
-
-#### Vigtige Home Assistant filer:
-
-* `/config/configuration.yaml` - Hovedkonfiguration
-* `/config/automations.yaml` - Automationer
-* `/config/scripts.yaml` - Scripts og makroer
-* `/config/scenes.yaml` - Scener
-* `/config/secrets.yaml` - Følsomme oplysninger (ikke i Git)
-
-#### Projektstruktur:
+### Projektstruktur:
 
 ```
 smart-home/
 ├── docs/                     # Projektdokumentation
 ├── src/homeassistant/        # HA konfiguration (sync til /config)
 ├── src/appdaemon/           # AppDaemon apps og konfiguration
+├── secure/                   # Krypterede credentials (ikke i Git)
 └── .vscode/                 # VS Code workspace indstillinger
 ```
 
-### 🔧 Troubleshooting
+### Troubleshooting
 
 #### SSH forbindelsesproblemer:
 
 * Kontroller at Advanced SSH & Web Terminal add-on kører
 * Verificer at compatibility mode er aktiveret
 * Test forbindelse med `ssh -v` for debug output
-
-#### VS Code Remote issues:
-
-* Genstart VS Code og prøv forbindelsen igen
-* Slet VS Code server cache på remote system
-* Kontroller firewall og netværksforbindelse
 
 #### YAML syntax fejl:
 
