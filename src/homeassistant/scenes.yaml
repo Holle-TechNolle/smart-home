@@ -1,0 +1,38 @@
+- id: '1737580664034'
+  name: MorgenLår
+  entities:
+    switch.akvarie_hydroponisk_belysning_switch:
+      friendly_name: Akvarie Hydroponisk Belysning Switch
+      state: 'on'
+    light.bryggers_lampet_light:
+      min_color_temp_kelvin: 2702
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 370
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 6535
+      color_temp: 153
+      hs_color:
+      - 54.768
+      - 1.6
+      rgb_color:
+      - 255
+      - 255
+      - 251
+      xy_color:
+      - 0.325
+      - 0.333
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Bryggers Lampet Light
+      supported_features: 40
+      state: 'on'
+    switch.el_keddel_switch:
+      friendly_name: El-keddel Switch
+      state: 'on'
+  icon: mdi:coffee-outline
+  metadata: {}
