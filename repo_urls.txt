@@ -1,0 +1,32 @@
+# GitHub Pages URLs for Holle-TechNolle/smart-home
+# Genereret automatisk
+
+## Dokumentation
+
+https://holle-technolle.github.io/smart-home/README.md
+https://holle-technolle.github.io/smart-home/docs/ARCHITECTURE.md
+https://holle-technolle.github.io/smart-home/docs/ENVIRONMENT.md
+https://holle-technolle.github.io/smart-home/docs/decisions/0001-github-platform.md
+https://holle-technolle.github.io/smart-home/docs/decisions/0002-vscode-ssh-development.md
+
+## Home Assistant Konfiguration
+
+https://holle-technolle.github.io/smart-home/src/homeassistant/test_config.yaml
+
+## VS Code Konfiguration
+
+https://holle-technolle.github.io/smart-home/.vscode/extensions.json
+
+## Git Konfiguration
+
+https://holle-technolle.github.io/smart-home/.gitattributes
+https://holle-technolle.github.io/smart-home/.github/ISSUE_TEMPLATE/task.md
+https://holle-technolle.github.io/smart-home/.gitignore
+
+## Andet
+
+https://holle-technolle.github.io/smart-home/git-cleanup-summary.txt
+https://holle-technolle.github.io/smart-home/git-history-before-purge.txt
+
+
+# Total antal filer: 12
