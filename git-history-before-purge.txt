@@ -1,5 +1,0 @@
-cffdd43 Ready to secure information
-9e47dc6 SSH access from VS Code
-6513135 Settings
-9c680d4 vscode_folder
-2b76824 setup-repo-structure

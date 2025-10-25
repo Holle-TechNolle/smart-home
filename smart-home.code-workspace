@@ -1,25 +1,35 @@
 {
-  "folders": [
-    {
-      "name": "Smart Home Project",
-      "path": "."
-    }
-  ],
-  "settings": {
-    "sshfs.configs": [
-      {
-        "name": "HomeAssistant",
-        "host": "192.168.1.15",
-        "port": 22,
-        "root": "/config",
-        "username": "root"
-      }
-    ]
-  },
-  "extensions": {
-    "recommendations": [
-      "kelvin.vscode-sshfs",
-      "redhat.vscode-yaml"
-    ]
-  }
+	"folders": [
+		{
+			"name": "smart-home (local)",
+			"path": "."
+		},
+		{
+			"name": "SSH FS - homeassistant-nuc",
+			"uri": "ssh://homeassistant-nuc/config"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.yaml": "home-assistant",
+			"*.yml": "home-assistant"
+		},
+		"sshfs.configs": [
+			{
+				"name": "homeassistant-nuc",
+				"host": "192.168.1.15",
+				"port": 22,
+				"username": "root",
+				"password": "GreteFraGylleGaarden.",
+				"root": "/config"
+			}
+		]
+	},
+	"extensions": {
+		"recommendations": [
+			"keesschollaart.vscode-home-assistant",
+			"redhat.vscode-yaml",
+			"kelvin.vscode-sshfs"
+		]
+	}
 }
