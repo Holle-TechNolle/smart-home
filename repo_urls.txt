@@ -11,6 +11,10 @@ https://holle-technolle.github.io/smart-home/docs/decisions/0002-vscode-ssh-deve
 
 ## Home Assistant Konfiguration
 
+https://holle-technolle.github.io/smart-home/src/homeassistant/automations.yaml
+https://holle-technolle.github.io/smart-home/src/homeassistant/configuration.yaml
+https://holle-technolle.github.io/smart-home/src/homeassistant/scenes.yaml
+https://holle-technolle.github.io/smart-home/src/homeassistant/scripts.yaml
 https://holle-technolle.github.io/smart-home/src/homeassistant/test_config.yaml
 
 ## VS Code Konfiguration
@@ -23,10 +27,15 @@ https://holle-technolle.github.io/smart-home/.gitattributes
 https://holle-technolle.github.io/smart-home/.github/ISSUE_TEMPLATE/task.md
 https://holle-technolle.github.io/smart-home/.gitignore
 
+## Python Kode
+
+https://holle-technolle.github.io/smart-home/generate_repo_urls.py
+
 ## Andet
 
 https://holle-technolle.github.io/smart-home/git-cleanup-summary.txt
 https://holle-technolle.github.io/smart-home/git-history-before-purge.txt
+https://holle-technolle.github.io/smart-home/repo_urls.txt
 
 
-# Total antal filer: 12
+# Total antal filer: 18
