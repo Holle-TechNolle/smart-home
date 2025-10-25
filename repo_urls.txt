@@ -8,6 +8,7 @@ https://holle-technolle.github.io/smart-home/docs/ARCHITECTURE.md
 https://holle-technolle.github.io/smart-home/docs/ENVIRONMENT.md
 https://holle-technolle.github.io/smart-home/docs/decisions/0001-github-platform.md
 https://holle-technolle.github.io/smart-home/docs/decisions/0002-vscode-ssh-development.md
+https://holle-technolle.github.io/smart-home/docs/guides/heating-concept.md
 
 ## Home Assistant Konfiguration
 
@@ -33,9 +34,7 @@ https://holle-technolle.github.io/smart-home/generate_repo_urls.py
 
 ## Andet
 
-https://holle-technolle.github.io/smart-home/git-cleanup-summary.txt
-https://holle-technolle.github.io/smart-home/git-history-before-purge.txt
 https://holle-technolle.github.io/smart-home/repo_urls.txt
 
 
-# Total antal filer: 18
+# Total antal filer: 17

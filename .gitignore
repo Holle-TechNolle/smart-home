@@ -1,62 +1,44 @@
-# Home Assistant 
-secrets.yaml 
-known_devices.yaml 
-home-assistant.log 
-home-assistant_v2.db 
-.uuid 
-.HA_VERSION 
- 
-# Python 
-__pycache__/ 
-*.py[cod] 
-*$py.class 
- 
-# AppDaemon 
-appdaemon.log 
- 
-# VS Code 
-.vscode/settings.json 
- 
-# Credentials (before git-crypt setup) 
-docs/CREDENTIALS.md 
-# Backup files (prevent accidental exposure) 
-*.backup 
- 
-# Development secrets (before git-crypt setup) 
-secrets.yaml 
-config/secrets.yaml 
- 
-# Temporary files 
-*.tmp 
-*.temp 
-# ======================================== 
-# SECURE FOLDER - NEVER COMMIT TO GITHUB 
-# ======================================== 
-secure/ 
-secure/* 
-secure/** 
- 
-# Backup files (prevent accidental exposure) 
-*.backup 
-**/*.backup 
- 
-# Temporary credentials files 
-secrets.yaml 
-config/secrets.yaml 
-credentials.* 
-passwords.* 
- 
-# SSH keys and configs 
-id_rsa 
-id_rsa.pub 
-ssh_config 
- 
-# Development temporary files 
-*.tmp 
-*.temp 
-*.log 
- 
-# OS generated files 
-.DS_Store 
-Thumbs.db 
-desktop.ini 
+# Home Assistant
+secrets.yaml
+known_devices.yaml
+home-assistant.log
+home-assistant_v2.db
+.uuid
+.HA_VERSION
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# AppDaemon
+appdaemon.log
+
+# VS Code
+.vscode/settings.json
+
+# Backup files (prevent accidental exposure)
+*.backup
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files (prevent accidental exposure)
+*.backup
+**/*.backup
+
+# SSH keys and configs
+id_rsa
+id_rsa.pub
+ssh_config
+
+# Development temporary files
+*.tmp
+*.temp
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
