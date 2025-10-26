@@ -42,3 +42,6 @@ ssh_config
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Ad hoc files
+repo_urls.txt
