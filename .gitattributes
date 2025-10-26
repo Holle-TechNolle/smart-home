@@ -1,3 +1,5 @@
 # Git-crypt configuration
 secure/** filter=git-crypt diff=git-crypt
 secure/.gitattributes !filter !diff
+secure/readme.md !filter !diff
+secure/README.md !filter !diff
