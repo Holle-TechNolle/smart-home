@@ -45,15 +45,16 @@ Se [ENVIRONMENT.md](https://holle-technolle.github.io/smart-home/docs/ENVIRONMEN
 ## Roadmap
 
 ### I Gang
-- **Heating Control System** - Intelligent varmestyring (se [heating-concept.md](https://holle-technolle.github.io/smart-home/docs/guides/heating-concept.md))
-  - Research af termostat-teknologier (Zigbee/Z-Wave/WiFi)
-  - Hardware platform beslutning
-  - Pilot test med én termostat
+- **Heating Control System** - FHEM-baseret varmestyring (se [heating-concept.md](https://holle-technolle.github.io/smart-home/docs/guides/heating-concept.md))
+  - **Fase 1:** FHEM setup på Raspberry Pi 3 til kontrol af EQ3 MAX termostater
+  - **Fase 2:** MQTT integration med Home Assistant for unified dashboard
+  - Erstatter ustabil MAX Cube med open source løsning
 
 ### Planlagt
-- **AppDaemon Integration** - Python-baseret automation engine
-- **Presence Detection** - Avanceret tilstedeværelsesstyring
+- **MQTT Broker** - Message bus til system-integration
+- **Presence Detection** - Avanceret tilstedeværelsesstyring integration med varmestyring
 - **Energy Monitoring** - Strømforbrug tracking og optimering
+- **AppDaemon Integration** - Python-baseret automation engine (efter MQTT etableret)
 
 Se [Kanban Board](https://github.com/users/Holle-TechNolle/projects/3) for aktuel status på alle opgaver.
 
@@ -96,10 +97,19 @@ Projektets task management kan udvides med NoSQL-baseret wiki-funktionalitet hvo
 
 Komplet teknisk dokumentation findes på [GitHub Pages](https://holle-technolle.github.io/smart-home/):
 
+### Arkitektur og Design
 - **[Architecture](https://holle-technolle.github.io/smart-home/docs/ARCHITECTURE.md)** - Design-principper og workflow
 - **[Environment](https://holle-technolle.github.io/smart-home/docs/ENVIRONMENT.md)** - Hardware, netværk og software setup
+
+### Architecture Decision Records
 - **[ADR 0001](https://holle-technolle.github.io/smart-home/docs/decisions/0001-github-platform.md)** - Valg af GitHub som platform
 - **[ADR 0002](https://holle-technolle.github.io/smart-home/docs/decisions/0002-vscode-ssh-development.md)** - VS Code Remote SSH workflow
+- **[ADR 0003](https://holle-technolle.github.io/smart-home/docs/decisions/0003-fhem-eq3-max-control.md)** - FHEM til EQ3 MAX termostat kontrol
+- **[ADR 0004](https://holle-technolle.github.io/smart-home/docs/decisions/0004-mqtt-integration-layer.md)** - MQTT som integration layer
+
+### Tekniske Guider
+- **[FHEM Installation](https://holle-technolle.github.io/smart-home/docs/guides/FHEM-installation-guide.md)** - Komplet setup guide til Raspberry Pi
+- **[HA MQTT Integration](https://holle-technolle.github.io/smart-home/docs/guides/HA-MQTT-integration-guide.md)** - Home Assistant MQTT konfiguration
 
 ## Udviklersetup
 
