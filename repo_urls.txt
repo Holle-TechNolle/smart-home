@@ -24,6 +24,7 @@ https://holle-technolle.github.io/smart-home/.vscode/extensions.json
 
 ## Git Konfiguration
 
+https://holle-technolle.github.io/smart-home/.git-crypt/.gitattributes
 https://holle-technolle.github.io/smart-home/.gitattributes
 https://holle-technolle.github.io/smart-home/.github/ISSUE_TEMPLATE/task.md
 https://holle-technolle.github.io/smart-home/.gitignore
@@ -37,4 +38,4 @@ https://holle-technolle.github.io/smart-home/generate_repo_urls.py
 https://holle-technolle.github.io/smart-home/repo_urls.txt
 
 
-# Total antal filer: 17
+# Total antal filer: 18
