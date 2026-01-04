@@ -1,13 +1,24 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
+input_boolean:
+  manual_leaving_trigger:
+    name: Manuel Afgang
+    icon: mdi:home-export-outline
+
 homeassistant:
-  latitude: 55.546341
-  longitude: 11.716269
+  latitude: 55.53515180464735 
+  longitude: 11.757280826568605
   elevation: 52
   unit_system: metric
   time_zone: Europe/Copenhagen
-
+  customize: !include customize.yaml
+  
+#logger:
+#  default: warning
+#  logs:
+#    custom_components.protected_switch: debug  
+    
 # HomeAssistant Companion
 mobile_app:
 
@@ -18,3 +29,71 @@ frontend:
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+
+protected_switch:
+  - name: "Skrivebord Protected"
+    switch_entity: switch.lampe_skrivebord_ambient_socket_1
+    power_sensor: sensor.lampe_skrivebord_ambient_power
+    threshold: 100
+    notify: true
+
+# PC Monitoring via MQTT
+mqtt:
+  sensor:
+    # PC State
+    - name: "Main PC State"
+      unique_id: main_pc_state
+      state_topic: !secret pc_main_status_topic
+      value_template: "{{ value_json.state }}"
+      icon: mdi:desktop-tower
+      
+    # CPU Usage
+    - name: "Main PC CPU"
+      unique_id: main_pc_cpu
+      state_topic: !secret pc_main_status_topic
+      value_template: "{{ value_json.cpu_percent }}"
+      unit_of_measurement: "%"
+      device_class: power_factor
+      icon: mdi:chip
+      
+    # Memory Usage
+    - name: "Main PC Memory"
+      unique_id: main_pc_memory
+      state_topic: !secret pc_main_status_topic
+      value_template: "{{ value_json.memory_percent }}"
+      unit_of_measurement: "%"
+      icon: mdi:memory
+      
+    # Disk Usage
+    - name: "Main PC Disk"
+      unique_id: main_pc_disk
+      state_topic: !secret pc_main_status_topic
+      value_template: "{{ value_json.disk_percent }}"
+      unit_of_measurement: "%"
+      icon: mdi:harddisk
+      
+    # Uptime
+    - name: "Main PC Uptime"
+      unique_id: main_pc_uptime
+      state_topic: !secret pc_main_status_topic
+      value_template: "{{ value_json.uptime_hours }}"
+      unit_of_measurement: "h"
+      icon: mdi:clock-outline
+      
+  # Binary sensor for connection status
+  binary_sensor:
+    - name: "Main PC Connection"
+      unique_id: main_pc_connection
+      state_topic: !secret pc_main_status_topic
+      value_template: >
+        {% if value_json.state in ['online', 'shutdown_acknowledged', 'shutting_down', 'abort_acknowledged'] %}
+          ON
+        {% else %}
+          OFF
+        {% endif %}
+      payload_on: "ON"
+      payload_off: "OFF"
+      device_class: connectivity
+      availability_topic: !secret pc_main_status_topic
+      payload_available: "online"
+      payload_not_available: "offline"

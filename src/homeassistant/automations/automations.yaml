@@ -1,0 +1,581 @@
+- id: '1736283402815'
+  alias: Akvarie Dagslys Tænd
+  description: ''
+  triggers:
+  - trigger: time
+    at: '13:00:00'
+  conditions: []
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      rgb_color:
+      - 223
+      - 223
+      - 96
+      brightness_pct: 25
+      transition: 900
+    target:
+      entity_id: light.akvariebelysning_light
+  mode: single
+- id: '1736286893021'
+  alias: Akvarie Solnedgang
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: NautiskTusmoerke
+  conditions: []
+  actions:
+  - action: light.turn_on
+    data:
+      rgb_color:
+      - 223
+      - 223
+      - 96
+      brightness_pct: 5
+      transition: 900
+    target:
+      entity_id: light.akvariebelysning_light
+  - type: turn_on
+    device_id: 7a2837e395f3bec0db059cc6ec99611f
+    entity_id: 07253dc0a3c1062a80f790a7d324bee2
+    domain: switch
+  mode: single
+- id: '1736373519360'
+  alias: Akvarie Hydroponisk Lys Sluk
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: Sun_Next_Dawn
+  - trigger: event
+    event_type: Putte_Sove_Nu
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 7a2837e395f3bec0db059cc6ec99611f
+    entity_id: 07253dc0a3c1062a80f790a7d324bee2
+    domain: switch
+  mode: single
+- id: '1736629191491'
+  alias: Bryggers Lampet Solnedgang
+  description: Bryggers Lampet Solnedgang
+  triggers:
+  - trigger: event
+    event_type: NautiskTusmoerke
+  conditions: []
+  actions:
+  - action: light.turn_on
+    data:
+      color_temp_kelvin: 2300
+      brightness: 64
+    target:
+      entity_id: light.bryggers_lampet_light
+  mode: single
+- id: '1736630015715'
+  alias: Bryggers Lampet Sluk
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: Putte_Sove_Nu
+  - trigger: event
+    event_type: Sun_Next_Dawn
+    enabled: false
+  conditions: []
+  actions:
+  - action: light.turn_on
+    data:
+      color_temp_kelvin: 2300
+      brightness: 0
+      transition: 900
+    target:
+      entity_id: light.bryggers_lampet_light
+  - delay: 00:15:00
+  - action: light.turn_off
+    target:
+      entity_id: light.bryggers_lampet_light
+    data: {}
+  mode: single
+- id: '1736706559727'
+  alias: Udløs hændelse ved Nautisk Tusmørke
+  triggers:
+  - entity_id: sun.sun
+    attribute: elevation
+    below: -6
+    trigger: numeric_state
+  actions:
+  - event: NautiskTusmoerke
+    event_data:
+      besked: Nautisk tusmørke starter nu
+  mode: single
+- id: '1736924637953'
+  alias: Udløs hændelse v Sun_Next_Dawn
+  description: ''
+  triggers:
+  - at: sensor.sun_next_dawn
+    trigger: time
+  conditions: []
+  actions:
+  - event: Sun_Next_Dawn
+    event_data:
+      besked: Nautisk tusmørke (morgen) slutter nu
+  mode: single
+- id: '1737050042333'
+  alias: Udløs Event Putte_Sove_Nu
+  description: ''
+  triggers:
+  - trigger: time
+    at: 00:15:00
+  conditions: []
+  actions:
+  - event: Putte_Sove_Nu
+    event_data:
+      besked: Nu er det tid til at putte sove
+  mode: single
+- id: '1737248891058'
+  alias: Akvarie Lys Sluk
+  description: ''
+  triggers:
+  - trigger: time
+    at: 00:00:00
+  - trigger: event
+    event_type: Sun_Next_Dawn
+    enabled: false
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data:
+      transition: 900
+    target:
+      device_id: 407c2e1749042a9f669d3b5ab2bd207b
+  mode: single
+- id: '1755113483222'
+  alias: Akvarie Natlys
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: Putte_Sove_Nu
+  conditions: []
+  actions:
+  - action: light.turn_on
+    data:
+      brightness_pct: 1
+      transition: 900
+      color_temp_kelvin: 2101
+    target:
+      entity_id: light.akvariebelysning_light
+  mode: single
+- id: '1756268663999'
+  alias: Skrivebord Ambient
+  description: ''
+  triggers:
+  - device_id: a4e44b65dac08c49617a5651adcd5513
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_3
+    trigger: device
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id: switch.pc_plug_protected
+    data: {}
+  mode: single
+- id: '1756272538097'
+  alias: Stue Lys
+  description: ''
+  triggers:
+  - device_id: a4e44b65dac08c49617a5651adcd5513
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_2
+    trigger: device
+  conditions: []
+  actions:
+  - action: homeassistant.turn_on
+    target:
+      entity_id:
+      - switch.stue_lys
+    data: {}
+  mode: single
+- id: '1757606250733'
+  alias: Lampetter
+  description: ''
+  triggers:
+  - device_id: f52ec9e02afc17f665cf5735c7806d1f
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_1
+    trigger: device
+  conditions: []
+  actions:
+  - type: toggle
+    device_id: 6eb07791aa53194c35e47a1113c5169b
+    entity_id: e440744ac908466e476e7fab558ce2e5
+    domain: switch
+  mode: single
+- id: '1757606450532'
+  alias: Lys under seng
+  description: ''
+  triggers:
+  - device_id: f52ec9e02afc17f665cf5735c7806d1f
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_2
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 37b5ec5158715b8082feb2fdf190363f
+    entity_id: ac6ec34e340ef4e042811475d456f312
+    domain: switch
+  - type: turn_on
+    device_id: 521b537056b8b1de2c857e099ada9bc3
+    entity_id: 65c39a37a394572434cd366c0c14cb4c
+    domain: switch
+    enabled: false
+  mode: single
+- id: '1757606891034'
+  alias: Fjernsyn tænd
+  description: ''
+  triggers:
+  - device_id: f52ec9e02afc17f665cf5735c7806d1f
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_3
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: acf9f326749da6d4a2128d1662452696
+    entity_id: 11715119d5d65d6239e26653de7e2161
+    domain: switch
+  mode: single
+- id: '1757607098541'
+  alias: Fjernsyn sluk
+  description: ''
+  triggers:
+  - device_id: f52ec9e02afc17f665cf5735c7806d1f
+    domain: zha
+    type: remote_button_double_press
+    subtype: button_3
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: acf9f326749da6d4a2128d1662452696
+    entity_id: 11715119d5d65d6239e26653de7e2161
+    domain: switch
+  mode: single
+- id: '1757734396376'
+  alias: Lys u seng Sluk
+  description: ''
+  triggers:
+  - device_id: f52ec9e02afc17f665cf5735c7806d1f
+    domain: zha
+    type: remote_button_double_press
+    subtype: button_2
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 37b5ec5158715b8082feb2fdf190363f
+    entity_id: ac6ec34e340ef4e042811475d456f312
+    domain: switch
+  - type: turn_off
+    device_id: 521b537056b8b1de2c857e099ada9bc3
+    entity_id: 65c39a37a394572434cd366c0c14cb4c
+    domain: switch
+    enabled: false
+  mode: single
+- id: '1757826215887'
+  alias: Skrivebord Sluk
+  description: ''
+  triggers:
+  - device_id: a4e44b65dac08c49617a5651adcd5513
+    domain: zha
+    type: remote_button_double_press
+    subtype: button_3
+    trigger: device
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.pc_plug_protected
+    data: {}
+  mode: single
+- id: '1757831501100'
+  alias: Lamper Sydvinduer
+  description: ''
+  triggers:
+  - device_id: a4e44b65dac08c49617a5651adcd5513
+    domain: zha
+    type: remote_button_long_press
+    subtype: button_2
+    trigger: device
+  conditions: []
+  actions:
+  - type: toggle
+    device_id: b3edce0253867dded714cbae54871be6
+    entity_id: 6a61046159ca572e958550595552b9a5
+    domain: switch
+  mode: single
+- id: '1758475685812'
+  alias: Morgenlår
+  description: ''
+  triggers:
+  - device_id: f52ec9e02afc17f665cf5735c7806d1f
+    domain: zha
+    type: remote_button_double_press
+    subtype: button_1
+    trigger: device
+  conditions: []
+  actions:
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - scene.morgenlar
+      - scene.morgengry
+  mode: single
+- id: '1758899737675'
+  alias: Holger har forladt Husmandsloden
+  triggers:
+  - entity_id: device_tracker.m2007j17g
+    from: home
+    for:
+      seconds: 30
+    id: state_trigger
+    trigger: state
+  - entity_id: input_boolean.manual_leaving_trigger
+    to: 'on'
+    id: manual_trigger
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      name: Holger Forlader
+      message: 'Udløst via: {{ trigger.id }}'
+    action: logbook.log
+  - parallel:
+    - sequence:
+      - data:
+          name: PC Shutdown Thread
+          message: Starting PC shutdown sequence
+        action: logbook.log
+      - action: script.pc_main_shutdown
+        data: {}
+    - sequence:
+      - delay: 00:01:30
+      - type: turn_off
+        device_id: aa7c3a23881310eeeda07b1343edbba2
+        entity_id: 862727130a4bce83935ccda8e32f8920
+        domain: switch
+      - action: switch.turn_off
+        target:
+          entity_id: switch.skrivebord_protected
+        enabled: false
+      - data:
+          name: PC Shutdown Thread
+          message: Desk power turned off
+        action: logbook.log
+    - sequence:
+      - action: light.turn_off
+        data: {}
+        target:
+          area_id: bryggers
+      - action: switch.turn_off
+        data: {}
+        target:
+          area_id:
+          - kokken
+          - bedroom
+          - living_room
+          - kitchen
+  - target:
+      entity_id: input_boolean.manual_leaving_trigger
+    action: input_boolean.turn_off
+  - data:
+      title: Husmandsloden
+      message: Alt er slukket via {{ trigger.id }}. PC lukker ned og skrivebord slukkes
+        automatisk. God tur!
+    action: notify.mobile_app_m2007j17g
+  mode: single
+  max_exceeded: silent
+- id: '1758951338862'
+  alias: El-keddel AutoSluk
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 480950dc9db54b106ce21b15a47fafc5
+    entity_id: 82f981d1018befb10e2949ab0c6cfbe8
+    domain: switch
+    trigger: device
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 480950dc9db54b106ce21b15a47fafc5
+    entity_id: 82f981d1018befb10e2949ab0c6cfbe8
+    domain: switch
+  mode: single
+- id: '1759466454470'
+  alias: Holger's home
+  description: ''
+  triggers:
+  - entity_id: device_tracker.m2007j17g
+    to: home
+    for:
+      seconds: 30
+    id: state_trigger
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      message: Holger Ankommer
+      name: Holger
+      entity_id: device_tracker.m2007j17g
+    action: logbook.log
+  - if:
+    - type: is_illuminance
+      condition: device
+      device_id: 0235c28c0074ca4912fc6464e09c1318
+      entity_id: 8401c5d8dbf7628a845860c42b315185
+      domain: sensor
+      below: 75
+    then:
+    - action: light.turn_on
+      target:
+        entity_id: light.bryggers_lampet_light
+      metadata: {}
+      data:
+        color_temp_kelvin: 2300
+        brightness: 64
+    - type: turn_on
+      device_id: 521b537056b8b1de2c857e099ada9bc3
+      entity_id: 65c39a37a394572434cd366c0c14cb4c
+      domain: switch
+    - type: turn_on
+      device_id: 6eb07791aa53194c35e47a1113c5169b
+      entity_id: e440744ac908466e476e7fab558ce2e5
+      domain: switch
+    - type: turn_on
+      device_id: b3edce0253867dded714cbae54871be6
+      entity_id: 6a61046159ca572e958550595552b9a5
+      domain: switch
+    - type: turn_on
+      device_id: aeb7b14677fad1c783bfa73cb3003642
+      entity_id: 2249075fef3f1d660569e70c39c040a8
+      domain: switch
+    - data:
+        title: Husmandsloden
+        message: Alt er tændt. Velkommen hjem!
+      action: notify.mobile_app_m2007j17g
+    else:
+    - data:
+        title: Husmandsloden
+        message: Velkommen hjem! (Det er lyst, så lys blev ikke tændt)
+      action: notify.mobile_app_m2007j17g
+  mode: single
+- id: '1761763725182'
+  alias: Natpisseri
+  description: ''
+  triggers:
+  - type: motion
+    device_id: df16711274db6405e3996dcc8215f9a2
+    entity_id: 24e1b72de38d5af81cb956b5791b8e65
+    domain: binary_sensor
+    trigger: device
+  - type: motion
+    device_id: e01a15a47e9d2c794e143600dc58f3a4
+    entity_id: 3af2d07eea6e5f03834c40a71d50c85b
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - type: is_illuminance
+    condition: device
+    device_id: 0235c28c0074ca4912fc6464e09c1318
+    entity_id: 8401c5d8dbf7628a845860c42b315185
+    domain: sensor
+    below: 150
+  actions:
+  - action: script.natpisserlys
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1762612099998'
+  alias: Vetrineskab
+  description: ''
+  triggers:
+  - device_id: a4e44b65dac08c49617a5651adcd5513
+    domain: zha
+    type: remote_button_short_press
+    subtype: button_1
+    trigger: device
+  conditions: []
+  actions:
+  - type: toggle
+    device_id: aeb7b14677fad1c783bfa73cb3003642
+    entity_id: 2249075fef3f1d660569e70c39c040a8
+    domain: switch
+  mode: single
+- id: '1763532985309'
+  alias: Stuevandring
+  description: ''
+  triggers:
+  - type: motion
+    device_id: d3ceee2054e81d8bec8f05d1a94b91bc
+    entity_id: fe27c11dd1522e0c1a8acded7a153f59
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - type: is_illuminance
+    condition: device
+    device_id: 0235c28c0074ca4912fc6464e09c1318
+    entity_id: 8401c5d8dbf7628a845860c42b315185
+    domain: sensor
+    below: 75
+  actions:
+  - action: script.stuevandringslys
+    metadata: {}
+    data: {}
+  mode: restart
+- id: '1766161442718'
+  alias: Hydroponisk Toggle
+  description: ''
+  triggers:
+  - device_id: f52ec9e02afc17f665cf5735c7806d1f
+    domain: zha
+    type: remote_button_long_press
+    subtype: button_1
+    trigger: device
+  conditions: []
+  actions:
+  - type: toggle
+    device_id: 7a2837e395f3bec0db059cc6ec99611f
+    entity_id: 07253dc0a3c1062a80f790a7d324bee2
+    domain: switch
+  mode: single
+- id: '1766735397139'
+  alias: Stue Lys Sluk
+  description: ''
+  triggers:
+  - device_id: a4e44b65dac08c49617a5651adcd5513
+    domain: zha
+    type: remote_button_double_press
+    subtype: button_2
+    trigger: device
+  conditions: []
+  actions:
+  - action: homeassistant.turn_off
+    target:
+      entity_id:
+      - switch.stue_lys
+    data: {}
+  mode: single

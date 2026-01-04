@@ -1,0 +1,195 @@
+natpisserlys:
+  alias: NatpisserLys
+  description: ''
+  icon: mdi:lamps-outline
+  sequence:
+  - parallel:
+    - if:
+      - condition: device
+        type: is_off
+        device_id: 521b537056b8b1de2c857e099ada9bc3
+        entity_id: 65c39a37a394572434cd366c0c14cb4c
+        domain: switch
+      then:
+      - type: turn_on
+        device_id: 521b537056b8b1de2c857e099ada9bc3
+        entity_id: 65c39a37a394572434cd366c0c14cb4c
+        domain: switch
+      - delay:
+          minutes: 8
+      - if:
+        - condition: device
+          type: is_on
+          device_id: 521b537056b8b1de2c857e099ada9bc3
+          entity_id: 65c39a37a394572434cd366c0c14cb4c
+          domain: switch
+          for:
+            minutes: 7
+            seconds: 55
+        then:
+        - type: turn_off
+          device_id: 521b537056b8b1de2c857e099ada9bc3
+          entity_id: 65c39a37a394572434cd366c0c14cb4c
+          domain: switch
+    - if:
+      - condition: device
+        type: is_off
+        device_id: 35a2cb2078c23debc3ad197e4698aac8
+        entity_id: 866ce146e5f94fff6b8d6b4388a735ea
+        domain: light
+      then:
+      - action: light.turn_on
+        data:
+          color_temp_kelvin: 2300
+          brightness: 32
+        target:
+          entity_id: light.bryggers_lampet_light
+      - delay:
+          minutes: 8
+      - if:
+        - condition: device
+          type: is_on
+          device_id: 35a2cb2078c23debc3ad197e4698aac8
+          entity_id: 866ce146e5f94fff6b8d6b4388a735ea
+          domain: light
+          for:
+            minutes: 7
+            seconds: 55
+        then:
+        - action: light.turn_off
+          target:
+            device_id: 35a2cb2078c23debc3ad197e4698aac8
+    - if:
+      - condition: and
+        conditions:
+        - condition: device
+          type: is_off
+          device_id: 37b5ec5158715b8082feb2fdf190363f
+          entity_id: ac6ec34e340ef4e042811475d456f312
+          domain: switch
+        - condition: device
+          type: is_off
+          device_id: 6eb07791aa53194c35e47a1113c5169b
+          entity_id: e440744ac908466e476e7fab558ce2e5
+          domain: switch
+      then:
+      - type: turn_on
+        device_id: 37b5ec5158715b8082feb2fdf190363f
+        entity_id: ac6ec34e340ef4e042811475d456f312
+        domain: switch
+      - delay:
+          minutes: 8
+      - if:
+        - condition: device
+          type: is_on
+          device_id: 37b5ec5158715b8082feb2fdf190363f
+          entity_id: ac6ec34e340ef4e042811475d456f312
+          domain: switch
+          for:
+            minutes: 7
+            seconds: 55
+        then:
+        - type: turn_off
+          device_id: 37b5ec5158715b8082feb2fdf190363f
+          entity_id: ac6ec34e340ef4e042811475d456f312
+          domain: switch
+stuevandringslys:
+  sequence:
+  - parallel:
+    - if:
+      - condition: device
+        type: is_off
+        device_id: 9e1106dc45ff43f7a67107e611dca650
+        entity_id: e2ad5666740350c68080e36ca3c1f7dd
+        domain: switch
+      then:
+      - sequence:
+        - type: turn_on
+          device_id: 9e1106dc45ff43f7a67107e611dca650
+          entity_id: e2ad5666740350c68080e36ca3c1f7dd
+          domain: switch
+        - delay:
+            minutes: 5
+        - condition: device
+          type: is_on
+          device_id: 9e1106dc45ff43f7a67107e611dca650
+          entity_id: e2ad5666740350c68080e36ca3c1f7dd
+          domain: switch
+          for:
+            minutes: 4
+            seconds: 55
+        - type: turn_off
+          device_id: 9e1106dc45ff43f7a67107e611dca650
+          entity_id: e2ad5666740350c68080e36ca3c1f7dd
+          domain: switch
+    - if:
+      - condition: device
+        type: is_off
+        device_id: fe7a45e07678187108895823a652f34d
+        entity_id: 30d4aa4dd77578b838c803425f5b000c
+        domain: switch
+      then:
+      - sequence:
+        - type: turn_on
+          device_id: fe7a45e07678187108895823a652f34d
+          entity_id: 30d4aa4dd77578b838c803425f5b000c
+          domain: switch
+        - delay:
+            minutes: 5
+        - condition: device
+          type: is_on
+          device_id: fe7a45e07678187108895823a652f34d
+          entity_id: 30d4aa4dd77578b838c803425f5b000c
+          domain: switch
+          for:
+            minutes: 4
+            seconds: 55
+        - type: turn_off
+          device_id: fe7a45e07678187108895823a652f34d
+          entity_id: 30d4aa4dd77578b838c803425f5b000c
+          domain: switch
+  alias: StuevandringsLys
+  description: ''
+
+# scripts.yaml - OPDATERET TIL JSON FORMAT
+pc_main_shutdown:
+  alias: "Shutdown Main PC"
+  icon: mdi:power
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: !secret pc_main_shutdown_cmd_topic
+        payload: >
+          {
+            "command": "shutdown",
+            "timestamp": "{{ now().isoformat() }}"
+          }
+        retain: false
+        qos: 1
+    - delay:
+        seconds: 2
+    - service: notify.notify
+      data:
+        title: "PC Shutdown Command Sent"
+        message: "Shutdown command sent to Main PC"
+
+pc_main_shutdown_abort:
+  alias: "Abort PC Shutdown"
+  icon: mdi:cancel
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: !secret pc_main_shutdown_cmd_topic
+        payload: >
+          {
+            "command": "abort",
+            "timestamp": "{{ now().isoformat() }}"
+          }
+        retain: false
+        qos: 1
+    - delay:
+        seconds: 2
+    - service: notify.notify
+      data:
+        title: "Abort Command Sent"
+        message: "Abort command sent to Main PC"

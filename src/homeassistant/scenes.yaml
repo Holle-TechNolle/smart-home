@@ -1,8 +1,8 @@
-- id: '1737580664034'
-  name: MorgenLår
+- id: '1758477013153'
+  name: Morgengry
   entities:
-    switch.akvarie_hydroponisk_belysning_switch:
-      friendly_name: Akvarie Hydroponisk Belysning Switch
+    switch.el_keddel_switch:
+      friendly_name: El-keddel Switch
       state: 'on'
     light.bryggers_lampet_light:
       min_color_temp_kelvin: 2702
@@ -14,25 +14,47 @@
       - xy
       color_mode: color_temp
       brightness: 254
-      color_temp_kelvin: 6535
-      color_temp: 153
+      color_temp_kelvin: 5263
+      color_temp: 190
       hs_color:
-      - 54.768
-      - 1.6
+      - 27.371
+      - 15.784
       rgb_color:
       - 255
-      - 255
-      - 251
+      - 233
+      - 215
       xy_color:
-      - 0.325
-      - 0.333
+      - 0.362
+      - 0.346
       off_with_transition: false
       off_brightness:
-      friendly_name: Bryggers Lampet Light
+      friendly_name: Bryggers Lampet
       supported_features: 40
       state: 'on'
-    switch.el_keddel_switch:
-      friendly_name: El-keddel Switch
+    switch.tz3000_gjnozsaz_ts011f:
+      friendly_name: 'Lampe, Badeværelse '
       state: 'on'
-  icon: mdi:coffee-outline
-  metadata: {}
+    switch.under_seng:
+      friendly_name: Lys under seng
+      state: 'on'
+    switch.t34_mini_3_switch_1:
+      device_class: switch
+      friendly_name: Vetrineskab
+      state: 'on'
+    switch.antela_smart_plug_4_socket_1:
+      device_class: switch
+      friendly_name: Lampe, grøn
+      state: 'on'
+    switch.pc_plug_protected:
+      power_threshold: 100
+      underlying_switch: switch.lampe_skrivebord_ambient_socket_1
+      power_sensor: sensor.lampe_skrivebord_ambient_power
+      current_power: 236.9
+      friendly_name: Skrivebord Protected
+      state: 'on'
+  icon: mdi:emoticon-cool
+  metadata:
+    switch.antela_smart_plug_4_socket_1:
+      entity_only: true
+    switch.pc_plug_protected:
+      entity_only: true

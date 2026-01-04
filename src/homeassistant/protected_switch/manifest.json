@@ -1,0 +1,10 @@
+{
+  "domain": "protected_switch",
+  "name": "Protected Switch",
+  "documentation": "https://github.com/Holle-TechNolle/smart-home",
+  "codeowners": [],
+  "requirements": [],
+  "dependencies": [],
+  "version": "1.0.0",
+  "iot_class": "local_polling"
+}
