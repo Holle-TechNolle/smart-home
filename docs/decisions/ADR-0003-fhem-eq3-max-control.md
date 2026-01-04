@@ -1,182 +1,191 @@
-# ADR-0003: FHEM til EQ3 MAX Termostat Kontrol
+# ADR-0003: FHEM for EQ3 MAX Thermostat Control
 
-**Status:** Accepteret  
-**Dato:** 26. oktober 2025  
+**Status:** Accepted  
+**Date:** 26 October 2025  
+**Updated:** 5 January 2025  
 **Supersedes:** N/A  
 **Superseded by:** N/A
 
 ## Context
 
-Vi har eksisterende EQ3 MAX radiatortermostater installeret i hele huset. Disse termostater er end-of-life produkter hvor producenten har stoppet support, og den originale MAX Cube controller er blevet ustabil og upålidelig.
+We have existing EQ3 MAX radiator thermostats installed throughout the house. These thermostats are end-of-life products where the manufacturer has stopped support, and the original MAX Cube controller has become unstable and unreliable.
 
-**Problemer med nuværende situation:**
-- MAX Cube fejler periodisk og kræver genstart
-- Ingen officiel integration til moderne smart home platforme
-- Hardware fungerer stadig perfekt, men mangler controller
-- Proprietary closed-source software uden community support
-- Risiko for komplet tab af varmestyring ved Cube-fejl
+**Problems with current situation:**
+- MAX Cube fails periodically and requires restart
+- No official integration to modern smart home platforms
+- Hardware still works perfectly, but lacks controller
+- Proprietary closed-source software without community support
+- Risk of complete loss of heating control if Cube fails
 
-**Udfordringen:**
-Vi har brug for en pålidelig måde at kontrollere eksisterende termostater på, uden at skulle udskifte alt hardware (dyrt og arbejdskrævende), samtidig med at løsningen skal kunne integreres i vores Home Assistant-baserede smart home setup.
+**The challenge:**
+We need a reliable way to control existing thermostats without having to replace all hardware (expensive and labour-intensive), whilst ensuring the solution can integrate with our Home Assistant-based smart home setup.
+
+**Update 5 January 2025:**
+The MAX Cube is now completely out of the project. Attempts to flash it to CUNX firmware failed due to hardware incompatibility (specific hardware version does not support DFU mode). The decision to use FHEM with USB CUL dongle remains valid and is now the only viable path forward.
 
 ## Alternatives Considered
 
 ### Alternative 1: Native Home Assistant Integration
-Brug community HACS integration til MAX.
+Use community HACS integration for MAX.
 
-**Fordele:**
-- Alt i Home Assistant - ingen ekstra software
+**Advantages:**
+- Everything in Home Assistant - no extra software
 - Unified interface
 
-**Ulemper:**
-- Community plugins er ustabile og poorly maintained
-- Mange brugere rapporterer connectivity issues
-- Python libraries for MAX protokol er immature
-- Risikerer samme problemer som MAX Cube
+**Disadvantages:**
+- Community plugins are unstable and poorly maintained
+- Many users report connectivity issues
+- Python libraries for MAX protocol are immature
+- Risks same problems as MAX Cube
 
-**Konklusion:** For risikabelt for kritisk infrastruktur som varme.
+**Conclusion:** Too risky for critical infrastructure like heating.
 
-### Alternative 2: Udskift Alt Hardware
-Køb nye Zigbee/Z-Wave termostater.
+### Alternative 2: Replace All Hardware
+Purchase new Zigbee/Z-Wave thermostats.
 
-**Fordele:**
-- Moderne hardware med god HA support
-- Ingen legacy protocol issues
-- Bedre features (batterilevetid, precision)
+**Advantages:**
+- Modern hardware with good HA support
+- No legacy protocol issues
+- Better features (battery life, precision)
 
-**Ulemper:**
-- Dyrt (15-20 termostater × 400-600 kr = 6000-12000 kr)
-- Tidskrævende installation
-- Nuværende hardware fungerer fint
-- Kan ikke genbruge investering i MAX ecosystem
+**Disadvantages:**
+- Expensive (15-20 thermostats × 400-600 kr = 6000-12000 kr)
+- Time-consuming installation
+- Current hardware works fine
+- Cannot reuse investment in MAX ecosystem
 
-**Konklusion:** Økonomisk uattraktivt når hardware virker.
+**Conclusion:** Economically unattractive when hardware is functional.
 
 ### Alternative 3: Keep MAX Cube
-Fortsæt med at bruge MAX Cube.
+Continue using MAX Cube as-is.
 
-**Fordele:**
-- Ingen ændringer nødvendige
-- Kendt system
+**Advantages:**
+- No changes necessary
+- Known system
 
-**Ulemper:**
-- Upålidelig og fejlende
-- Ingen integration med HA
-- Closed source - kan ikke debugges eller fixes
-- Producenten har droppet support
+**Disadvantages:**
+- Unreliable and failing
+- No integration with HA
+- Closed source - cannot be debugged or fixed
+- Manufacturer has dropped support
 - Single point of failure
 
-**Konklusion:** Ikke en langsigtet løsning.
+**Conclusion:** Not a long-term solution.
 
-### Alternative 4: FHEM på Raspberry Pi
-Brug FHEM med USB CUL/CUN dongle til direkte MAX kontrol.
+**Update 5 January 2025:** This alternative is now impossible - hardware cannot be flashed to CUNX and original firmware is too unreliable. MAX Cube has been retired from the project.
 
-**Fordele:**
+### Alternative 4: FHEM on Raspberry Pi
+Use FHEM with USB CUL/CUN dongle for direct MAX control.
+
+**Advantages:**
 - Mature MAX protocol implementation
-- Aktiv community og ongoing maintenance
-- Open source - kan debugges og tilpasses
-- Direkte RF kommunikation - ingen Cube nødvendig
-- Separation of concerns - heating isoleret fra HA
-- Kan integreres med HA via MQTT
+- Active community and ongoing maintenance
+- Open source - can be debugged and customised
+- Direct RF communication - no Cube necessary
+- Separation of concerns - heating isolated from HA
+- Can integrate with HA via MQTT
 
-**Ulemper:**
-- Ekstra software at vedligeholde
-- Læringskurve for FHEM
-- Kræver USB CUL/CUN dongle (~200-400 kr)
+**Disadvantages:**
+- Extra software to maintain
+- Learning curve for FHEM
+- Requires USB CUL/CUN dongle (~200-400 kr)
 
-**Konklusion:** Bedste balance mellem pålidelighed, omkostning og fremtidssikring.
+**Conclusion:** Best balance between reliability, cost and future-proofing.
 
 ## Decision
 
-**Vi implementerer FHEM på Raspberry Pi 3 som dedikeret heating controller.**
+**We implement FHEM on Raspberry Pi 3 as dedicated heating controller.**
 
-**Teknisk setup:**
-- FHEM installeres på eksisterende Raspberry Pi 3
-- USB CUL/CUN dongle håndterer RF kommunikation til termostater
-- MQTT bruges til integration med Home Assistant
-- To-fase approach: Først standalone FHEM, senere HA integration
+**Technical setup:**
+- FHEM installed on existing Raspberry Pi 3
+- USB CUL/CUN dongle handles RF communication to thermostats
+- MQTT used for integration with Home Assistant
+- Two-phase approach: First standalone FHEM, later HA integration
 
 **Rationale:**
-- FHEM er den mest mature løsning til EQ3 MAX
-- Separation of concerns - heating er kritisk og bør være robust
-- Raspberry Pi kan køre 24/7 uden afhængighed af HA
-- MQTT giver flexibel integration uden tight coupling
-- Open source giver fuld kontrol og debugging muligheder
+- FHEM is the most mature solution for EQ3 MAX
+- Separation of concerns - heating is critical and should be robust
+- Raspberry Pi can run 24/7 without dependency on HA
+- MQTT provides flexible integration without tight coupling
+- Open source gives full control and debugging possibilities
+
+**Update 5 January 2025:**
+This decision is now the only viable path. The MAX Cube hardware cannot be used (incompatible with CUNX flashing), so USB CUL dongle is required. See ADR-0005 for details on why the CUNX alternative was rejected.
 
 ## Consequences
 
 ### Positive
 
-**Tekniske fordele:**
-- Stabil og pålidelig varmestyring
-- Fuld kontrol over legacy hardware
-- Kan debugges og tilpasses efter behov
-- Graceful degradation - heating fungerer selvom HA går ned
+**Technical advantages:**
+- Stable and reliable heating control
+- Full control over legacy hardware
+- Can be debugged and customised as needed
+- Graceful degradation - heating functions even if HA goes down
 
-**Økonomiske fordele:**
-- Genbruger eksisterende hardware-investering
-- Minimal cost (kun USB dongle)
-- Udskyder behov for dyr hardware-udskiftning
+**Economic advantages:**
+- Reuses existing hardware investment
+- Minimal cost (only USB dongle)
+- Postpones need for expensive hardware replacement
 
-**Arkitektoniske fordele:**
-- Følger separation of concerns princippet
-- MQTT integration layer gør komponenter udskiftelige
-- Kan migrere til anden controller senere uden at ændre HA
+**Architectural advantages:**
+- Follows separation of concerns principle
+- MQTT integration layer makes components replaceable
+- Can migrate to different controller later without changing HA
 
 ### Negative
 
-**Kompleksitet:**
-- Ekstra system at vedligeholde (FHEM)
-- Ny teknologi at lære
-- Mere kompleks fejlsøgning ved problemer
+**Complexity:**
+- Extra system to maintain (FHEM)
+- New technology to learn
+- More complex troubleshooting when problems occur
 
-**Afhængigheder:**
-- Kræver Raspberry Pi kører 24/7
-- USB dongle er single point of failure (men nemt at erstatte)
-- MQTT broker skal være stabil
+**Dependencies:**
+- Requires Raspberry Pi runs 24/7
+- USB dongle is single point of failure (but easy to replace)
+- MQTT broker must be stable
 
-**Teknisk gæld:**
-- Legacy protokol support forbliver nødvendig
-- Migration til moderne hardware stadig attraktiv på lang sigt
+**Technical debt:**
+- Legacy protocol support remains necessary
+- Migration to modern hardware still attractive in long term
 
 ### Mitigations
 
-**For kompleksitet:**
-- Grundig dokumentation af FHEM setup
-- Tekniske guider til troubleshooting
-- Gradvis implementation (start med få termostater)
+**For complexity:**
+- Thorough documentation of FHEM setup
+- Technical guides for troubleshooting
+- Gradual implementation (start with few thermostats)
 
-**For afhængigheder:**
-- Raspberry Pi er dediceret til heating - minimal uptime risk
-- Backup USB dongle (lav cost)
-- MQTT broker kan køre på RPi sammen med FHEM
+**For dependencies:**
+- Raspberry Pi dedicated to heating - minimal uptime risk
+- Backup USB dongle (low cost)
+- MQTT broker can run on RPi together with FHEM
 
-**For legacy teknologi:**
-- Arkitekturen designes så FHEM kan udskiftes senere
-- MQTT interface bevares ved fremtidig migration
-- Planlæg for gradvis hardware-udskiftning over flere år
+**For legacy technology:**
+- Architecture designed so FHEM can be replaced later
+- MQTT interface preserved during future migration
+- Plan for gradual hardware replacement over several years
 
 ## Follow-up Actions
 
 1. **Immediate:**
-   - [ ] Bestil USB CUL/CUN dongle
-   - [ ] Installer FHEM på Raspberry Pi
-   - [ ] Test med én termostat som proof-of-concept
+   - [x] ~~Order USB CUL/CUN dongle~~ - Status: Pending purchase
+   - [ ] Install FHEM on Raspberry Pi
+   - [ ] Test with one thermostat as proof-of-concept
 
 2. **Short term:**
-   - [ ] Pair alle termostater med FHEM
-   - [ ] Implementér basic tidsbaserede profiler
-   - [ ] Verificér stabilitet over 1-2 uger
+   - [ ] Pair all thermostats with FHEM
+   - [ ] Implement basic time-based profiles
+   - [ ] Verify stability over 1-2 weeks
 
 3. **Medium term:**
-   - [ ] Implementér MQTT integration
-   - [ ] Opret Home Assistant dashboard
-   - [ ] Migrér avancerede automationer til HA
+   - [ ] Implement MQTT integration
+   - [ ] Create Home Assistant dashboard
+   - [ ] Migrate advanced automations to HA
 
 4. **Long term:**
-   - [ ] Monitor for moderne MAX-kompatible termostater
-   - [ ] Overvej gradvis migration til Zigbee når budget tillader
-   - [ ] Evaluér alternative controllers hvis FHEM bliver problematisk
+   - [ ] Monitor for modern MAX-compatible thermostats
+   - [ ] Consider gradual migration to Zigbee when budget allows
+   - [ ] Evaluate alternative controllers if FHEM becomes problematic
 
 ## References
 
@@ -186,13 +195,14 @@ Brug FHEM med USB CUL/CUN dongle til direkte MAX kontrol.
 
 ## Related Documents
 
-- [heating-concept.md](../guides/heating-concept.md) - Detaljeret konceptdokument
-- [FHEM-installation-guide.md](../guides/FHEM-installation-guide.md) - Teknisk installationsguide
-- ADR-0004 (kommende) - MQTT som integration layer
+- [heating-concept.md](../guides/heating-concept.md) - Detailed concept document
+- [FHEM-installation-guide.md](../guides/FHEM-installation-guide.md) - Technical installation guide
+- [ADR-0004-mqtt-integration-layer.md](ADR-0004-mqtt-integration-layer.md) - MQTT as integration layer
+- [ADR-0005-flash-max-cube-to-cunx.md](ADR-0005-flash-max-cube-to-cunx.md) - Why MAX Cube flash failed
 
 ---
 
-**Beslutningen afspejler projektets kerneprincipper:**
-- Implementér kun nyt når det tilbyder **unik funktionalitet** (FHEM har mature MAX support)
-- Kan **erstatte eksisterende** problematisk løsning (unstable MAX Cube)
-- Home Assistant forbliver centrum via MQTT integration
+**This decision reflects the project's core principles:**
+- Only implement new solutions when they offer **unique functionality** (FHEM has mature MAX support)
+- Can **replace existing** problematic solution (unstable MAX Cube)
+- Home Assistant remains centre via MQTT integration
